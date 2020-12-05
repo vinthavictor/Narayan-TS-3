@@ -5,6 +5,7 @@ const Constraint=Matter.Constraint;
 var a,block8,block9,block10,block11,block12,block13,block14,block15,block16,stand2,block17,block18,block19,block20,block21,block22,block23,block24,block25;
 var circles=[];
 var ground,stand1,polygon,slingshot;
+var score =0;
 function setup() {
   createCanvas(800,800);
   stroke(255)
@@ -16,6 +17,11 @@ function setup() {
   circles.push(width/2)
   ground=new Ground(width/2,height,800,20);
   
+  //score
+  score = 0
+
+
+
   stand1=new Ground(298,757,240,10);
   block8=new Box(330,235,30,40);
   block9=new Box(360,235,30,40);
@@ -39,15 +45,20 @@ polygon=new Polygon(20,600,40);
    block22=new Box(270,690,30,40);
    block23=new Box(300,690,30,40);
    block24=new Box(330,690,30,40);
-slingshot=new SlingShot(polygon.polygon,{x:100,y:200});
+
+  slingshot=new SlingShot(polygon.polygon,{x:100,y:200});
    block25=new Box(300,650,30,40);
   stand2=new Ground(390,262,240, 10);
 }
-Engine.run(engine);
+//Engine.run(engine);
 function draw() {
   //camera.zoom=camera.zoom+1
   Engine.update(engine);
   background(0);  
+  //console.log(score)
+  fill("yellow");
+  text("SCORE : "+score,650,40);
+ 
   stand1.display();
   block8.display();
   block9.display();
@@ -67,14 +78,34 @@ function draw() {
   block23.display();
   block24.display();
  
-block25.display();
-polygon.display();
-slingshot.display();
+  block25.display();
+//Score
+  block8.score();
+  block9.score();
+  block10.score();
+  block11.score();
+  block12.score();
+  block13.score();
+  block14.score();
+  block15.score();
+  block16.score();
+  block17.score();
+  block18.score();
+  block19.score();
+  block20.score();
+  block21.score();
+  block22.score();
+  block23.score();
+  block24.score();
+ 
+  block25.score();
+  polygon.display();
+  slingshot.display();
   a=a-1;
   stand2.display(); 
   //camera.zoom=camera.zoom+0.01
  //camera.position={x:width/2,y:a}
- ground.display();
+  ground.display();
   
   for (i=0;i<circles.length;i++)
 {
@@ -85,17 +116,25 @@ if(camera.position.x%width===0)
 	circles.push(camera.position.x+width/2)
 }
  // camera(0, 0, 20 + sin(frameCount * 0.01) * 10, 0, 0, 0, 0, 1, 0);
- drawSprites();
+ //drawSprites();
 }
 
 function keyPressed ()
 {
-  if(keyCode === RIGHT_ARROW)
+  // if(keyCode === RIGHT_ARROW)
+  // {
+    
+  //   if(keyIsDown(RIGHT_ARROW))
+  //   {
+  //     camera.position.x=camera.position.x+10;
+  //   }
+  // }
+
+  //Attach
+  if(keyCode === 32)
   {
-    if(keyIsDown(RIGHT_ARROW))
-    {
-      camera.position.x=camera.position.x+10;
-    }
+    slingshot.attach(polygon.polygon)
+    
   }
 } 
 function mouseDragged(){
